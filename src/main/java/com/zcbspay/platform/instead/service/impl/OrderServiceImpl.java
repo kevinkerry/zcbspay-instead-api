@@ -64,6 +64,7 @@ public class OrderServiceImpl implements OrderService {
 			}else{
 				respCode="00";
 				respMsg="订单生成成功";
+				System.out.println("订单号："+resultBean.getResultObj().toString());
 				osrb.setTn(resultBean.getResultObj().toString());
 			}
 		} catch (BusinessOrderException e) {

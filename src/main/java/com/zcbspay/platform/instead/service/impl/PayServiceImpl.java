@@ -57,8 +57,9 @@ public class PayServiceImpl implements PayService {
 		payBean.setCardType("1");
 		payBean.setPhone("18600806796");
 		payBean.setCertNo("110105198610094112");
-		payBean.setTn("170116061000000016");
+		payBean.setTn("170117061000000028");
 		payBean.setTxnAmt("2");
+		payBean.setBindId(null);
 		String respCode="";
 		String respMsg="";
 		try {

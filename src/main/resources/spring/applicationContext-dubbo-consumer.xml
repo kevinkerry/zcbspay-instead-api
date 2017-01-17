@@ -7,23 +7,17 @@
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd  
         ">  
   
-    <!-- 具体的实现bean -->  
 <!--     <bean id="demoService" class="com.unj.dubbotest.provider.impl.DemoServiceImpl" />   -->
   
-    <!-- 提供方应用信息，用于计算依赖关系 -->  
     <dubbo:application name="product-business" />  
   
-    <!-- 使用zookeeper注册中心暴露服务地址 ,即zookeeper的所在服务器ip地址和端口号 -->  
-    <dubbo:registry address="zookeeper://192.168.1.13:2181" />  
+    <dubbo:registry address="${dubbo.registry.address}" />  
   
-    <!-- 用dubbo协议在20880端口暴露服务 -->  
 <!--     <dubbo:protocol name="dubbo" port="20001" />   -->
   
-    <!-- 声明需要暴露的服务接口 -->  
 <!--     <dubbo:service interface="	com.zcbspay.platform.business.merch.service.QueryMerchMkService" ref="demoService" />   -->
 
 	<dubbo:reference id="queryMerchMkService" timeout="1200000" interface="com.zcbspay.platform.business.merch.service.QueryMerchMkService" check="false" version="1.0"/>
   	<dubbo:reference id="remoteOrderService" timeout="1200000" interface="com.zcbspay.platform.business.order.service.OrderService" check="false" version="1.0"/>
   	<dubbo:reference id="quickPayService" timeout="1200000" interface="com.zcbspay.platform.business.pay.service.QuickPayService" check="false" version="1.0"/>
-  	
 </beans>  

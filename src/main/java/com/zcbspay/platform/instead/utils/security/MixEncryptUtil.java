@@ -55,7 +55,6 @@ public class MixEncryptUtil {
 			addit.put("riskInfo", Base64Utils.encode(AESUtil.encrypt(addit.getString("riskInfo"), key)));
 			data = Base64Utils.encode(AESUtil.encrypt(data, key));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String additStr = addit.toString();

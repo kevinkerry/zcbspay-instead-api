@@ -30,7 +30,7 @@ import com.zcbspay.platform.instead.vo.TradeQueryRequestBean;
 
 @Controller
 @RequestMapping("/api")
-public class ApiController extends BaseController{
+public class ApiController{
 	private static final Log log = LogFactory.getLog(ApiController.class);
 	
 	@Autowired
@@ -51,40 +51,14 @@ public class ApiController extends BaseController{
 	@Autowired
 	private QueryMerchMkService queryMerchMkService;
 	
-	@RequestMapping("/queryMerchMkService")
-	@ResponseBody
-	public MerchMkBean queryMerchMkService() {
-		MerchMkBean merchMKBean=null;
-		 try {
-			 merchMKBean =queryMerchMkService.queryMerchMkByMemberId("200000000000610");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	 return merchMKBean;
-	}
 	
+	private static String merid="200000000000610";
 	
 	@RequestMapping("/index")
-	public ModelAndView index(String name,String age,String sex) {
+	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("index");
-		Map<String, Object> data = new HashMap<>();
-		data.put("name", name);
-		mv.addObject("name", name);
-		data.put("sex",sex);
-		mv.addObject("sex",sex);
-		data.put("age",age);
-		mv.addObject("age",age);
-		String dataString= JsonUtils.objectToJson(data);
-		Map<String, String> result = new HashMap<>();
-		result =  MixEncryptUtil.encode(dataString,rsaService.getLocalPublicKey("200000000000610"));
-	    mv.addObject("sign", result.get("sign"));
-	    mv.addObject("data", result.get("data"));
-	    mv.addObject("addit", result.get("addit"));
 		return mv;
 	}
-
-	
 	
 	@RequestMapping("/deco")
 	public ModelAndView deco(String sign,String data,String addit) {
@@ -92,7 +66,7 @@ public class ApiController extends BaseController{
 		mv.addObject("sign", sign);
 	    mv.addObject("data", data);
 	    mv.addObject("addit", addit);
-	    GateKeeper keeper=MixEncryptUtil.decode(data, sign, addit,rsaService.getLocalPrivateKey("200000000000610"));
+	    GateKeeper keeper=MixEncryptUtil.decode(data, sign, addit,rsaService.getLocalPrivateKey(merid));
 	    Map<String, String> returnmap = new HashMap<>();
 	    returnmap.put("data", keeper.getData().toString());
 	    returnmap.put("sign", keeper.getSign().toString());
@@ -234,10 +208,8 @@ public class ApiController extends BaseController{
 	 * @return
 	 */
 	private Map<String, String> enc(Object orderSubmitBean) {
-		ModelAndView mv = new ModelAndView("index");
 		String dataString= JsonUtils.objectToJson(orderSubmitBean);
-		Map<String, String> result = new HashMap<>();
-		result =  MixEncryptUtil.encode(dataString,rsaService.getLocalPublicKey("200000000000610"));
+		Map<String, String> result =MixEncryptUtil.encode(dataString,rsaService.getLocalPublicKey(merid));
 		return result;
 	}
 	/**

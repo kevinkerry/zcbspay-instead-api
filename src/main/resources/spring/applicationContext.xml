@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
-<!--   <context:property-placeholder  location="classpath:system.properties" /> -->
+  <context:property-placeholder  location="classpath:dev/dubbo.properties" />
   <context:component-scan base-package="com.zcbspay.platform.instead">
     <context:exclude-filter type="annotation"
       expression="org.springframework.stereotype.Controller" />
@@ -20,9 +20,6 @@
       expression="org.springframework.web.bind.annotation.ControllerAdvice" />
   </context:component-scan>
   
-<!--   <task:annotation-driven />      -->
   <import resource="classpath:spring/applicationContext-*.xml" />
-  
-  <!-- 应用配置类 -->
 
 </beans>

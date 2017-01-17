@@ -21,7 +21,6 @@
 			<ref bean="mappingJackson2HttpMessageConverter" />
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-  <!-- 自动扫描的包名 -->
   <context:component-scan base-package="com.zcbspay.platform.instead" use-default-filters="false">
     <context:include-filter expression="org.springframework.stereotype.Controller"
       type="annotation" />
