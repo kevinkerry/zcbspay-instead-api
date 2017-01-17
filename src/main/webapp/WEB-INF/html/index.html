@@ -1,0 +1,355 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>精彩集锦</title>
+<style type="text/css">
+body {
+	margin:0px;
+	font-size:13px;
+	font-family:Arial;
+} 
+#container{
+	position:relative;
+	width:100%;
+}
+#banner{
+	height:20px;
+	border:1px solid #000000;
+	text-align:center;
+	background-color:#a2d9ff;
+	padding:10px;
+	margin-bottom:2px;
+}
+#content{
+	float:left;
+	text-align:center;
+	padding-right:200px;	
+}
+#links{
+	float:left;
+	width:33.1%;
+	height:500px;
+	border:1px solid #000000;
+	text-align:left;
+}
+#footer{
+	clear:both;			
+	text-align:center;
+	height:30px;
+	border:1px solid #000000;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<div id="container">
+	<div id="banner">
+		<strong>加密解密demo</strong>
+	</div>
+	
+	<div id="links">
+		<h2>加密后的密文</h2>
+		<form id="miresult" action="deco">
+		<div style="width:100% ;word-wrap:break-word; overflow:hidden;">
+			<h3>sign:</h3>
+			<div id="divsign"></div>
+			<input id="sign" type="hidden" name="sign" />
+		</div>
+		<div style="width:100% ;word-wrap:break-word; overflow:hidden;">
+			<h3>addit:</h3>
+			<div id="divaddit"></div>
+			<input id="addit" type="hidden" name="addit" '/>
+		</div>
+		<div style="width:100% ;word-wrap:break-word; overflow:hidden;">
+			<h3>data:</h3>
+			<div id="divdata"></div>
+			<input id="data" type="hidden" name="data" />
+		</div>
+		<div>
+		<h2>解密:<input type="submit" value="解密"></h2>
+		</div>
+		</form>
+	</div>
+	<!-- <div id="links">
+		<h2>解密后的明文</h2>
+		<div style="width:100% ;word-wrap:break-word; overflow:hidden;"><h3>sign:</h3>${txt.sign}</div>
+		<div style="width:100% ;word-wrap:break-word; overflow:hidden;"><h3>addit:</h3>${txt.addit}</div>
+		<div style="width:100% ;word-wrap:break-word; overflow:hidden;"><h3>data:</h3>${txt.data}</div>
+	</div> -->
+	<!-- <div id="links">
+		<h2>加密</h2>
+		<form  action="index">
+		姓名:<input type="text" name="name" value="${name}" /><br>
+		年龄:<input type="text" name="age" value="${age}"/><br>
+		性别:<input type="text" name="sex" value="${sex}"/><br>
+		<h2>加密:<input type="submit" value="加密"></h2>
+		</form>
+	</div> -->
+</div>
+<div id="container">
+	<div id="links">
+		<h2>订单提交</h2>
+		<form id="ordersubmit" action="enordersubmit"> 
+			<table>
+				<tr>
+					<td style="text-align: center">版本:<input type="text"  name="version" value="1.0"/></td>
+					<td style="text-align: center">编码方式:<input type="text" name="encoding" value="u"/> </td>
+				</tr>
+				<tr>
+					<td style="text-align: center">交易类型:<input type="text" name="txnType" value="01"/></td>
+					<td style="text-align: center">交易子类:<input type="text" name="txnSubType" value="00"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">产品类型:<input type="text" name="bizType" value="000201"/></td>
+					<td style="text-align: center">渠道类型:<input type="text" name="channelType" value="01"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">通知地址:<input type="text" name="backUrl" value="http:www.baidu.com"/></td>
+					<td style="text-align: center">商户全称:<input type="text" name="merName" value="商贸有限公司"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">商户简称:<input type="text" name="merAbbr" value="商贸"/> </td>
+					<td style="text-align: center">商户订单号:<input type="text" name="orderId" value="3456789"/> </td>
+				</tr>
+				<tr>
+					<td style="text-align: center">订单类型:<input type="text" name="orderType" value="1"/></td>
+					<td style="text-align: center">订单发送时间:<input type="text" name="txnTime" value="12:56"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">支付超时时间:<input type="text" name="payTimeout" value="10"/></td>
+					<td style="text-align: center">交易金额:<input type="text" name="txnAmt" value="2"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">交易币种:<input type="text" name="currencyCode" value="156"/> </td>
+					<td style="text-align: center">订单描述:<input type="text" name="orderDesc" value="正确提交"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">保留域:<input type="text" name="reserved" value="保留域"/></td>
+					<td></td>
+				</tr>
+			</table>
+			<h2>加密:<input type="button" value="加密" onclick="enc('enordersubmit','ordersubmit')"></h2>
+			<h2>请求:<input type="button" value="请求接口" onclick="askApi('ordersubmit')"></h2>
+		</form>
+	</div>
+	<div id="links">
+		<h2>返回的结果</h2>
+		<div id="showInfo" style="width:100% ;word-wrap:break-word; overflow:hidden;">
+		
+		</div>
+	</div>
+	<div id="links">
+		<h2>快捷支付</h2>
+		<form id="simplypay" action="ensimplypay">
+			<table>
+				<tr>
+					<td style="text-align: center">	版本	:<input type="text"  name="version"	 value="10"/></td>
+					<td style="text-align: center">	编码方式	:<input type="text"  name="encoding"	 value="11"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">	交易类型	:<input type="text"  name="txnType"	 value="12"/></td>
+					<td style="text-align: center">	交易子类	:<input type="text"  name="txnSubType"	 value="13"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">	产品类型	:<input type="text"  name="bizType"	 value="14"/></td>
+					<td style="text-align: center">	渠道类型	:<input type="text"  name="channelType"	 value="15"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">	受理订单号	:<input type="text"  name="tn"	 value="16"/></td>
+					<td style="text-align: center">	交易金额	:<input type="text"  name="txnAmt"	 value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">	交易币种	:<input type="text"  name="currencyCode" value="18"/></td>
+					<td style="text-align: center">	绑卡标识	:<input type="text"  name="bindId"	 value="19"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">	加密信息域	:<input type="text"  name="encryptData"	 value="10"/></td>
+				</tr>
+			</table>
+			<h2>加密:<input type="button" value="加密" onclick="enc('ensimplypay','simplypay')"></h2>
+			<h2>请求:<input type="button" value="请求接口" onclick="askApi('simplypay')"></h2>
+		</form>
+	</div>
+	<div id="links">
+		<h2>交易查询</h2>
+		<form id="tradequery" action="entradequery">
+			<table>
+				<tr>
+					<td style="text-align: center">版本				:<input type="text"  name="version" value="1"/></td>
+					<td style="text-align: center">编码方式			:<input type="text"  name="encoding" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">交易类型			:<input type="text"  name="txnType" value="1"/></td>
+					<td style="text-align: center">交易子类			:<input type="text"  name="txnSubType" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">产品类型			:<input type="text"  name="bizType" value="1"/></td>
+					<td style="text-align: center">渠道类型			:<input type="text"  name="channelType" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">受理订单号		:<input type="text"  name="tn" value="1"/></td>
+				</tr>
+			</table>
+			<h2>加密:<input type="button" value="加密" onclick="enc('entradequery','tradequery')"></h2>
+			<h2>请求:<input type="button" value="请求接口" onclick="askApi('tradequery')"></h2>
+		</form>
+	</div>
+	<div id="links">
+		<h2>代付</h2>
+		<form id="otherpay" action="enotherpay"> 
+			<table>
+				<tr>
+					<td style="text-align: center">版本				:<input type="text"  name="version" value="1"/></td>
+					<td style="text-align: center">编码方式			:<input type="text"  name="encoding" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">交易类型			:<input type="text"  name="txnType" value="1"/></td>
+					<td style="text-align: center">交易子类			:<input type="text"  name="txnSubType" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">产品类型			:<input type="text"  name="bizType" value="1"/></td>
+					<td style="text-align: center">渠道类型			:<input type="text"  name="channelType" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">通知地址			:<input type="text"  name="backUrl" value="1"/></td>
+					<td style="text-align: center">订单发送时间		:<input type="text"  name="txnTime" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">商户代码			:<input type="text"  name="merId" value="1"/></td>
+					<td style="text-align: center">商户订单号		:<input type="text"  name="orderId" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">交易币种			:<input type="text"  name="currencyCode" value="1"/></td>
+					<td style="text-align: center">金额				:<input type="text"  name="txnAmt" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">账号类型			:<input type="text"  name="accType" value="1"/></td>
+					<td style="text-align: center">账号				:<input type="text"  name="accNo" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">户名				:<input type="text"  name="accName" value="1"/></td>
+					<td style="text-align: center">开户行代码		:<input type="text"  name="bankCode" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">开户行省			:<input type="text"  name="issInsProvince" value="1"/></td>
+					<td style="text-align: center">开户行市			:<input type="text"  name="issInsCity" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">开户行名称		:<input type="text"  name="issInsName" value="1"/></td>
+					<td style="text-align: center">证件类型			:<input type="text"  name="certifTp" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">证件号码			:<input type="text"  name="certifId" value="1"/></td>
+					<td style="text-align: center">手机号			:<input type="text"  name="phoneNo" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">账单类型			:<input type="text"  name="billType" value="1"/></td>
+					<td style="text-align: center">附言				:<input type="text"  name="notes" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">保留域			:<input type="text"  name="reserved" value="1"/></td>
+				</tr>
+			</table>
+			<h2>加密:<input type="button" value="加密" onclick="enc('enotherpay','otherpay')"></h2>
+			<h2>请求:<input type="button" value="请求接口" onclick="askApi('otherpay')"></h2>
+		</form>
+	</div>
+	<div id="links">
+		<h2>交易结果异步通知</h2>
+		<form id="noticeasyn" action="ennoticeasyn"> 
+			<table>
+				<tr>
+					<td style="text-align: center">版本			:<input type="text"  name="version" value="1.0"/></td>
+					<td style="text-align: center">编码方式		:<input type="text"  name="encoding" value="01"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">交易类型		:<input type="text"  name="txnType" value="01"/></td>
+					<td style="text-align: center">交易子类		:<input type="text"  name="txnSubType" value="01"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">产品类型		:<input type="text"  name="bizType" value="01"/></td>
+					<td style="text-align: center">渠道类型		:<input type="text"  name="channelType" value="1"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">商户名称		:<input type="text"  name="merName" value="1.0"/></td>
+					<td style="text-align: center">商户订单号	:<input type="text"  name="orderId" value="111111"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">订单发送时间	:<input type="text"  name="txnTime" value="20170101"/></td>
+					<td style="text-align: center">支付超时时间	:<input type="text"  name="payTimeout" value="1000"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">交易金额		:<input type="text"  name="txnAmt" value="1"/></td>
+					<td style="text-align: center">交易币种		:<input type="text"  name="currencyCode" value="美元"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">订单描述		:<input type="text"  name="orderDesc" value="这就是一个误会"/></td>
+					<td style="text-align: center">保留域		:<input type="text"  name="reserved" value="案说法为发送到阿斯蒂芬"/></td>
+				</tr>
+				<tr>
+					<td style="text-align: center">订单状态		:<input type="text"  name="orderStatus" value="1"/></td>
+					<td style="text-align: center">受理订单号	:<input type="text"  name="tn" value="333333"/></td>
+				</tr>
+			</table>
+			<h2>加密:<input type="button" value="加密" onclick="enc('ennoticeasyn','noticeasyn')"></h2>
+			<h2>请求:<input type="button" value="请求接口" onclick="askApi('noticeasyn')"></h2>
+		</form>
+	</div>
+</div>
+<script>
+	function askApi(url){
+		$.ajax({
+                type: "POST",
+                url:url,
+                data:$('#miresult').serialize(),
+                async: false,
+                error: function(request) {
+                    alert(request.responseJSON.message);
+                },
+                success: function(data) {
+                	data=JSON.stringify(data);
+                	alert(data);
+                	var html ='<p>'+data;
+                	html+='</p>';
+                    var divshow = $("#showInfo");
+				    divshow.text("");
+				    divshow.append(html); 
+                }
+            })
+		}
+	
+	function enc(url,id){
+		$.ajax({
+                type: "POST",
+                url:url,
+                data:$('#'+id).serialize(),
+                async: false,
+                error: function(request) {
+                    alert(request.responseJSON.message);
+                },
+                success: function(data) {
+                	$("#sign").val(data.sign)
+                	$("#addit").val(data.addit)
+                	$("#data").val(data.data)
+                	
+                	var sign ='<p>'+data.sign;
+                	sign+='</p>';
+                	var divsign = $("#divsign");
+                	divsign.text("");
+                	divsign.append(sign); 
+                	
+                	var datas ='<p>'+data.data;
+                	datas+='</p>';
+                	var divdata = $("#divdata");
+                	divdata.text("");
+                	divdata.append(datas); 
+                	
+                	var addit ='<p>'+data.addit;
+                	addit+='</p>';
+                	var divaddit = $("#divaddit");
+                	divaddit.text("");
+                	divaddit.append(addit); 
+                }
+            })
+		}
+</script>
+</body>
+</html>
