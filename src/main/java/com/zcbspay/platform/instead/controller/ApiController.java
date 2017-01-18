@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.business.merch.bean.MerchMkBean;
-import com.zcbspay.platform.business.merch.service.QueryMerchMkService;
 import com.zcbspay.platform.instead.service.NoticeService;
 import com.zcbspay.platform.instead.service.OrderService;
 import com.zcbspay.platform.instead.service.PayService;
@@ -47,9 +45,6 @@ public class ApiController{
 	
 	@Autowired
 	private RsaService rsaService;
-	
-	@Autowired
-	private QueryMerchMkService queryMerchMkService;
 	
 	
 	private static String merid="200000000000610";
