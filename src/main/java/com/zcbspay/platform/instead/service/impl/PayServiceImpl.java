@@ -18,6 +18,7 @@ import com.zcbspay.platform.instead.utils.ValidateLocator;
 import com.zcbspay.platform.instead.utils.security.AdditBean;
 import com.zcbspay.platform.instead.utils.security.GateKeeper;
 import com.zcbspay.platform.instead.utils.security.MixEncryptUtil;
+import com.zcbspay.platform.instead.vo.EncryptData;
 import com.zcbspay.platform.instead.vo.OtherPayRequestBean;
 import com.zcbspay.platform.instead.vo.OtherPayResponseBean;
 import com.zcbspay.platform.instead.vo.SimplePayRequestBean;
@@ -52,6 +53,16 @@ public class PayServiceImpl implements PayService {
 				simplePayRequestBean);
 		PayBean payBean=BeanCopyUtil.copyBean(PayBean.class,
 				simplePayRequestBean);
+		EncryptData encryptData=new EncryptData(simplePayRequestBean.getEncryptData());
+		
+		
+		payBean.setCardNo(encryptData.getCardNo());
+		payBean.setCardKeeper(encryptData.getCustomerNm());
+		payBean.setCardType(encryptData.getCardType());
+		payBean.setPhone(encryptData.getPhoneNo());
+		payBean.setCertNo(encryptData.getCertifId());
+		payBean.setTn("170117061000000028");
+		
 		payBean.setCardNo("6228480018543668979");
 		payBean.setCardKeeper("郭佳");
 		payBean.setCardType("1");

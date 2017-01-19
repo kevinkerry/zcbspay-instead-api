@@ -33,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
 	private com.zcbspay.platform.business.order.service.OrderService remoteOrderService;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+	
 	@Override
 	public Map<String, String> orderSubmit(String sign, String data, String addit) {
 		//这里包含未加密的附加数据
@@ -46,10 +47,11 @@ public class OrderServiceImpl implements OrderService {
 		oBean.setAccessType(additBean.getAccessType());
 		oBean.setCoopInstiId(additBean.getCoopInstiId());
 		oBean.setMerId(additBean.getMerId());
-		oBean.setMemberId("999999999999999");
 		oBean.setTxnTime(DateUtils.getCurrentDateTime());
-		oBean.setOrderTimeout("28880202000000");
+		oBean.setOrderTimeout("28880202000000");//过期是时间是如何设置的？
 		oBean.setOrderId(System.currentTimeMillis()+"");
+		
+		oBean.setMemberId("999999999999999");//这个参数不知道如何来
 		
 		OrderSubmitResponseBean osrb=BeanCopyUtil.copyBean(OrderSubmitResponseBean.class, osb);
 		String respCode="";

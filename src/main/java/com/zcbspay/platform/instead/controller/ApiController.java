@@ -3,6 +3,9 @@ package com.zcbspay.platform.instead.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.dubbo.remoting.exchange.Request;
+import com.alibaba.dubbo.remoting.exchange.Response;
 import com.zcbspay.platform.instead.service.NoticeService;
 import com.zcbspay.platform.instead.service.OrderService;
 import com.zcbspay.platform.instead.service.PayService;
@@ -48,6 +53,12 @@ public class ApiController{
 	
 	
 	private static String merid="200000000000610";
+	
+	@RequestMapping("/test")
+	public String test(HttpServletResponse response,HttpServletRequest request) {
+		return request.getParameter("username");//request.getAttribute("username").toString();
+	}
+	
 	
 	@RequestMapping("/index")
 	public ModelAndView index() {

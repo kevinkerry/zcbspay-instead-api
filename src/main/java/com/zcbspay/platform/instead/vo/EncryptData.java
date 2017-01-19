@@ -3,6 +3,8 @@ package com.zcbspay.platform.instead.vo;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import net.sf.json.JSONObject;
+
 public class EncryptData {
 	@NotEmpty(message = "param.empty.cardNo")
 	@Length(max = 20, message = "param.error.cardNo")
@@ -76,4 +78,18 @@ public class EncryptData {
 	public void setExpired(String expired) {
 		this.expired = expired;
 	}
+	
+	public EncryptData(String encryptData){
+		JSONObject jsonEncryptData = JSONObject.fromObject(encryptData);
+		setCardNo(String.valueOf(jsonEncryptData.get("cardNo")));
+		setCardType(String.valueOf(jsonEncryptData.get("cardType")));
+		setCustomerNm(String.valueOf(jsonEncryptData.get("customerNm")));
+		setCertifTp(String.valueOf(jsonEncryptData.get("certifTp")));
+		setCertifId(String.valueOf(jsonEncryptData.get("certifId")));
+		setPhoneNo(String.valueOf(jsonEncryptData.get("phoneNo")));
+		setCvn2(String.valueOf(jsonEncryptData.get("cvn2")));
+		setExpired(String.valueOf(jsonEncryptData.get("expired")));
+	}
+	
+	
 }
